@@ -1,0 +1,39 @@
+{
+    "name": "@linhntaim/ethereum-simple-faucet-endpoint",
+    "version": "1.0.0",
+    "description": "Endpoint for Simple Faucet dApp",
+    "main": "dist/server.js",
+    "scripts": {
+        "build": "babel src --out-dir ./dist --delete-dir-on-start --minified --source-maps",
+        "test": "nyc mocha --require @babel/register",
+        "coverage": "nyc report --reporter=text-lcov | coveralls",
+        "dev": "npm run build && node ./dist/server.js",
+        "serve": "node ./dist/server.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/linhntaim/ethereum-simple-faucet-endpoint.git"
+    },
+    "keywords": [],
+    "author": "Nguyen Tuan Linh <contact@linhntaim.com> (https://linhntaim.com)",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/linhntaim/ethereum-simple-faucet-endpoint/issues"
+    },
+    "homepage": "https://github.com/linhntaim/ethereum-simple-faucet-endpoint#readme",
+    "dependencies": {
+        "dotenv": "^16.3.1",
+        "express": "^4.18.2",
+        "web3": "^4.0.2"
+    },
+    "devDependencies": {
+        "@babel/cli": "^7.22.5",
+        "@babel/core": "^7.22.5",
+        "@babel/preset-env": "^7.22.5",
+        "@babel/register": "^7.22.5",
+        "chai": "^4.3.7",
+        "coveralls": "^3.1.1",
+        "mocha": "^8.4.0",
+        "nyc": "^15.1.0"
+    }
+}
