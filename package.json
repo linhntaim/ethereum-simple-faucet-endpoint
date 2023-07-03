@@ -4,7 +4,7 @@
     "description": "Endpoint for Simple Faucet dApp",
     "main": "dist/server.js",
     "scripts": {
-        "build": "babel src --out-dir ./dist --delete-dir-on-start --minified --source-maps",
+        "build": "babel src --out-dir ./dist --delete-dir-on-start --minified --source-maps --copy-files",
         "test": "nyc mocha --require @babel/register",
         "coverage": "nyc report --reporter=text-lcov | coveralls",
         "dev": "npm run build && node ./dist/server.js",
