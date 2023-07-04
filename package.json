@@ -14,8 +14,13 @@
         "type": "git",
         "url": "git+https://github.com/linhntaim/ethereum-simple-faucet-endpoint.git"
     },
-    "keywords": [],
-    "author": "Nguyen Tuan Linh <contact@linhntaim.com> (https://linhntaim.com)",
+    "keywords": [
+        "web3",
+        "ethereum",
+        "smartcontract",
+        "endpoint"
+    ],
+    "author": "Nguyen Tuan Linh <contact@linhntaim.com> (https://www.linhntaim.com)",
     "license": "MIT",
     "bugs": {
         "url": "https://github.com/linhntaim/ethereum-simple-faucet-endpoint/issues"
