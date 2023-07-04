@@ -1,0 +1,1 @@
+{"version":3,"file":"controller.js","names":["Controller","_createClass","_classCallCheck","exports"],"sources":["../../../../src/app/support/controller/controller.js"],"sourcesContent":["export class Controller\r\n{\r\n}"],"mappings":"4gDAAa,CAAAA,UAAU,cAAAC,YAAA,UAAAD,WAAA,EAAAE,eAAA,MAAAF,UAAA,IAAAG,OAAA,CAAAH,UAAA,CAAAA,UAAA"}
