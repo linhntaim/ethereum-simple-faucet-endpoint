@@ -10,7 +10,7 @@ npm run build
 npm run serve
 ```
 
-### Build & Serve
+### Build & Serve (for Development)
 ```
 npm run dev
 ```

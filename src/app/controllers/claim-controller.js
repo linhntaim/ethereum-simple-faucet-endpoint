@@ -50,32 +50,27 @@ export class ClaimController extends Controller
 
         try {
             const web3 = new Web3(supportedChains[state.chainId].rpc)
-            const wallet = web3.eth.accounts.wallet.add(contractOwnerPrivateKey)
-            const owner = wallet.get(0)
-            console.log('Wallet:', wallet, owner)
-            const contract = new web3.eth.Contract(contractAbi, contractAddress)
-            const balance = await contract.methods.getBalance().call()
-            console.log('Balance:', balance)
+            const owner = web3.eth.accounts.wallet.add(contractOwnerPrivateKey).get(0)
+            const contract = new web3.eth.Contract(contractAbi, contractAddress, {
+                from: owner.address,
+            })
             const sendTransaction = contract.methods.send(state.address)
             const signedSendTransaction = await web3.eth.accounts.signTransaction({
-                from: owner.address,
                 to: contractAddress,
                 data: sendTransaction.encodeABI(),
                 gas: await sendTransaction.estimateGas(),
                 gasPrice: Web3.utils.toHex(await web3.eth.getGasPrice()),
-                nonce: Web3.utils.toHex(await web3.eth.getTransactionCount(owner.address)),
+                nonce: Web3.utils.toHex(await web3.eth.getTransactionCount(owner.address, 'latest')),
             }, owner.privateKey)
-            console.log('Signed:', signedSendTransaction)
-            const executedSendTransaction = await web3.eth.sendSignedTransaction(signedSendTransaction.rawTransaction)
-            console.log(`Tx successful with hash: ${executedSendTransaction.transactionHash}`)
-        }
-        catch (err) {
-            console.log('Error:', err)
-            return new ErrorResponse({
-                error: 'Something went wrong',
+            const sendTransactionReceipt = await web3.eth.sendSignedTransaction(signedSendTransaction.rawTransaction)
+            return new SuccessResponse({
+                transactionHash: sendTransactionReceipt.transactionHash,
             })
         }
-
-        return new SuccessResponse()
+        catch (err) {
+            return new ErrorResponse({
+                error: err?.innerError?.message || 'Something went wrong',
+            })
+        }
     }
 }
