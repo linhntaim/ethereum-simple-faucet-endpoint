@@ -58,7 +58,16 @@ The contract ABI file is stored in `src/app/data/contract-abi.json`.
 
 ### Chain RPCs
 
-The list of supported chain RPCs is stored in `src/app/data/supported-chains.json`.
+The list of supported chain RPCs is stored in `src/app/data/supported-chains.json` with the following format:
+
+```
+{
+    "{chain_id}": {
+        "rpc": "{rpc_url}"
+    },
+    ...
+}
+```
 
 ## API
 
