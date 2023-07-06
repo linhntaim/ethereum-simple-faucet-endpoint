@@ -10,41 +10,41 @@ export class ClaimController extends Controller
         const state = request.body
         if (!('chainId' in state)) {
             return new ErrorResponse({
-                error: 'Chain ID is missing',
-            }, 403)
+                error: 'Chain ID is missing.',
+            }, 400)
         }
         if (!('address' in state)) {
             return new ErrorResponse({
-                error: 'Address is missing',
-            }, 403)
+                error: 'Address is missing.',
+            }, 400)
         }
         if (!(state.chainId in supportedChains)) {
             return new ErrorResponse({
-                error: `Chain ${state.chainId} is not supported`,
-            }, 403)
+                error: `Chain ${state.chainId} is not supported.`,
+            }, 400)
         }
         const contractAddressEnvName = 'FAUCET_CONTRACT_ADDRESS_' + state.chainId
         if (!(contractAddressEnvName in process.env)) {
             return new ErrorResponse({
-                error: 'Server is misconfigured',
+                error: 'Server is misconfigured.',
             })
         }
         const contractAddress = Web3.utils.toHex(process.env[contractAddressEnvName])
         if (contractAddress === '0x') {
             return new ErrorResponse({
-                error: 'Server is misconfigured',
+                error: 'Server is misconfigured.',
             })
         }
         const contractOwnerPrivateKeyEnvName = 'FAUCET_CONTRACT_OWNER_PRIVATE_KEY_' + state.chainId
         if (!(contractOwnerPrivateKeyEnvName in process.env)) {
             return new ErrorResponse({
-                error: 'Server is misconfigured',
+                error: 'Server is misconfigured.',
             })
         }
         const contractOwnerPrivateKey = Web3.utils.toHex(process.env[contractOwnerPrivateKeyEnvName])
         if (contractOwnerPrivateKey === '0x') {
             return new ErrorResponse({
-                error: 'Server is misconfigured',
+                error: 'Server is misconfigured.',
             })
         }
 
@@ -69,7 +69,7 @@ export class ClaimController extends Controller
         }
         catch (err) {
             return new ErrorResponse({
-                error: err?.innerError?.message || 'Something went wrong',
+                error: err?.innerError?.message || 'Something went wrong.',
             })
         }
     }

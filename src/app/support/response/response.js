@@ -6,6 +6,8 @@ export class Response
     }
 
     send(response) {
-        response.status(this.status).send(this.data)
+        response
+            .status(this.status)
+            .send(this.data)
     }
 }
