@@ -11,7 +11,7 @@ app.use(express.json())
 app.use(express.urlencoded({extended: true}))
 app.use((req, res, next) => {
     [
-        new Cors(),
+        // new Cors(),
     ].forEach(middleware => {
         middleware.handle(req, res)
     })
