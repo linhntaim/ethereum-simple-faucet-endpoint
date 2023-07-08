@@ -2,7 +2,6 @@ import {Controller} from '../support/controller'
 import {ErrorResponse, SuccessResponse} from '../support/response'
 import {Web3} from 'web3'
 import contractAbi from '../data/contract-abi.json'
-import supportedChains from '../data/supported-chains.json'
 
 export class ClaimController extends Controller
 {
@@ -18,12 +17,14 @@ export class ClaimController extends Controller
                 error: 'Address is missing.',
             }, 400)
         }
-        if (!(state.chainId in supportedChains)) {
+        const chainRpcEnvName = `CHAIN_RPC_${state.chainId}`
+        if (!(chainRpcEnvName in process.env)) {
             return new ErrorResponse({
                 error: `Chain ${state.chainId} is not supported.`,
             }, 400)
         }
-        const contractAddressEnvName = 'FAUCET_CONTRACT_ADDRESS_' + state.chainId
+        const chainRpc = process.env[chainRpcEnvName]
+        const contractAddressEnvName = `FAUCET_CONTRACT_ADDRESS_${state.chainId}`
         if (!(contractAddressEnvName in process.env)) {
             return new ErrorResponse({
                 error: 'Server is misconfigured.',
@@ -35,7 +36,7 @@ export class ClaimController extends Controller
                 error: 'Server is misconfigured.',
             })
         }
-        const contractOwnerPrivateKeyEnvName = 'FAUCET_CONTRACT_OWNER_PRIVATE_KEY_' + state.chainId
+        const contractOwnerPrivateKeyEnvName = `FAUCET_CONTRACT_OWNER_PRIVATE_KEY_${state.chainId}`
         if (!(contractOwnerPrivateKeyEnvName in process.env)) {
             return new ErrorResponse({
                 error: 'Server is misconfigured.',
@@ -49,7 +50,7 @@ export class ClaimController extends Controller
         }
 
         try {
-            const web3 = new Web3(supportedChains[state.chainId].rpc)
+            const web3 = new Web3(chainRpc)
             const owner = web3.eth.accounts.wallet.add(contractOwnerPrivateKey).get(0)
             const contract = new web3.eth.Contract(contractAbi, contractAddress, {
                 from: owner.address,

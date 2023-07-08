@@ -2,7 +2,11 @@
 
 The endpoint provides an API for client to request to get fund from [the faucet contract](https://github.com/linhntaim/ethereum-simple-faucet-contract).
 
-## Commands
+## Project setup
+
+```
+npm install
+```
 
 ### Build
 
@@ -22,13 +26,13 @@ npm run serve
 npm run dev
 ```
 
-## Configurations
+## Configuration
 
 _Note: The faucet contract is supported to be deployed to multiple chains._
 
-### The contract address
+### Contract address
 
-The contract address is an environment variable created in the following format:
+The contract address which manages the fund on the EVM-compatible blockchain is an environment variable created in the following format:
 
 ```
 FAUCET_CONTRACT_ADDRESS_{chain_id}={address}
@@ -39,7 +43,7 @@ FAUCET_CONTRACT_ADDRESS_{chain_id}={address}
 
 It could be defined in the `.env` file.
 
-### The contract owner's address
+### Contract owner's address
 
 The contract owner's address is an environment variable created in the following format:
 
@@ -52,9 +56,9 @@ FAUCET_CONTRACT_OWNER_PRIVATE_KEY_{chain_id}={address}
 
 It could be defined in the `.env` file.
 
-### The contract ABI
+### Contract ABI
 
-The contract ABI file is stored in `src/app/data/contract-abi.json`.
+The contract ABI is stored in `src/app/data/contract-abi.json`.
 
 ### Chain RPCs
 
